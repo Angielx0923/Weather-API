@@ -9,7 +9,7 @@
 <body>
     <header>
         <div class="change-temp-unity__container">
-            <button id="changeTempUnity" class="change-temp-unity__btn">°C</button>
+            <button id="changeTempUnity" class="weather__temp-unity change-temp-unity__btn">°C</button>
         </div>
     </header>
     <main>
@@ -18,11 +18,17 @@
             <span id="city" class="city">paris</span>
 
             <div class="weather__content">
-                <span id="icon" class="weather__icon">icon</span>
+                <img src="#" alt="Weather icon" id="icon" class="weather__icon">
                 <span id="description" class="weather__description">cloudy</span>
 
                 <div class="temp__container">
                     <span id="temp" class="weather__temp">xx.x</span>
+                    <span class="weather__temp-unity weather__temp-unity--big tempUnity">°C</span>
+                </div>
+
+                <div class="feels-like__container">
+                    <span class="weather__feels-like-text">Feels like</span>
+                    <span id="feelsLike" class="weather__feels-like">xx.x</span>
                     <span class="weather__temp-unity weather__temp-unity--big tempUnity">°C</span>
                 </div>
 

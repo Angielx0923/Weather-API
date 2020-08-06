@@ -20,13 +20,19 @@ header {
 }
 
 .change-temp-unity__btn {
-    width: 60px;
-    height: 60px;
-    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
     border-radius: 50%;
     border: none;
     background-color: rgba(178, 223, 251, .5);
     cursor: pointer;
+
+    transition: all 500ms ease;
+}
+
+.change-temp-unity__btn:hover {
+    background-color: rgba(178, 223, 251, 1);
 }
 
 .change-city__btn {
@@ -38,6 +44,12 @@ header {
     outline-offset: .3rem;
     margin: 10px;
     outline: 2px solid rgba(178, 223, 251, .5);
+
+    transition: all 500ms ease;
+}
+
+.change-city__btn:hover {
+    background-color: rgba(178, 223, 251, 1);
 }
 
 .container {
@@ -69,11 +81,25 @@ header {
 .weather__content {
     display: flex;
     flex-direction: column;
+    margin-top: -3rem;
+}
+
+.weather__icon {
+    width: 100%;
+    margin-bottom: -2rem;
+}
+
+.weather__description {
+    text-transform: capitalize;
 }
 
 .temp__container {
     font-size: 3rem;
     font-weight: bold;
+}
+
+.feels-like__container {
+    margin-bottom: 1rem;
 }
 
 .general-info__container {
@@ -84,6 +110,7 @@ header {
     width: 200px;
     border: 2px solid rgba(178, 223, 251, .3);
     padding: .5rem 1rem;
+    line-height: 1.5rem;
 }
 
 .wind__container {
