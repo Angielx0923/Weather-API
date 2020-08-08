@@ -1,28 +1,50 @@
 let city                = 'New York';
 let celsius             = 'metric';
 let fahrenheit          = 'imperial';
+var url					= '';
 let switchCityBtn       = document.querySelector('#changeCity');
 let switchTempUnityBtn  = document.querySelector('#changeTempUnity');
-// Regler problème
-let tempUnity           = document.querySelectorAll('.weather__temp-unity');
+let tempUnity           = document.getElementsByClassName('weather__temp-unity');
+let form				= document.querySelector('#form');
+let input				= document.querySelector('#changeCityInput');
+let submit				= document.querySelector('#changeCitySubmit');
+
+
+var slideOpen = true;
+var heightChecked = false;
+var initHeight = 0;
+//form.style.display = 'none';
 
 receiveTemperature(city);
 
-switchCityBtn.addEventListener('click', () => {
-  // créer un input en HTML qu'on cache et qu'on active uniquement au click
-  // --------> ICI <---------
-  city = prompt('Enter a city :');
-  receiveTemperature(city);
-});
+function slideToggle() {
+    if(!heightChecked) {
+        initHeight = form.offsetHeight;
+        heightChecked = true;
+    }
+    if(slideOpen) {
+        slideOpen = false;
+        form.style.height = '0px';
+    }
+    else {
+        slideOpen = true;
+        form.style.height = initHeight + 'px';
+    }
+};
 
-// Créer un addEventListener switchTempUnity --> au click
-switchTempUnityBtn.addEventListener('click', () => {
-  // Faire la condition ici + stocker dans une variable la grosse partie de l'url?
-  // --------> ICI <---------
-  url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=467a1480cc6bf31722891e57ffb7cf35&units=' + fahrenheit;
-  tempUnity.textContent = '°F';
-});
+function changeTempUnity(){
+	for(let i = 0; i < tempUnity.length; i++) {
 
+		if(tempUnity[i].textContent === '°C') {
+			tempUnity[i].textContent = '°F';
+			url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=467a1480cc6bf31722891e57ffb7cf35&units=' + fahrenheit;
+		}
+		else {
+			tempUnity[i].textContent = '°C';
+			url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=467a1480cc6bf31722891e57ffb7cf35&units=' + celsius;
+		}
+	};
+};
 
 function roundedNumber(value) {
   return Math.round(value * 10) / 10;
@@ -30,7 +52,8 @@ function roundedNumber(value) {
 
 function receiveTemperature(city) {
 
-  const url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=467a1480cc6bf31722891e57ffb7cf35&units=' + celsius;
+	url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=467a1480cc6bf31722891e57ffb7cf35&units=' + celsius;
+
 
   let request = new XMLHttpRequest();
 
@@ -70,3 +93,43 @@ function receiveTemperature(city) {
     }
   }  
 }
+
+form.addEventListener('submit', (e) => {
+	e.preventDefault();
+	if(input.value == '') {
+		input.style.borderBottom = '2px solid red';
+	}
+	else {
+		input.style.borderBottom = '2px solid grey'
+		city = input.value;
+		input.value = '';
+		receiveTemperature(city);
+	}
+});
+
+switchCityBtn.addEventListener('click', () => {
+	slideToggle();
+});
+
+switchTempUnityBtn.addEventListener('mouseover', () => {
+	if(switchTempUnityBtn.textContent === '°C') {
+		switchTempUnityBtn.textContent = '°F';
+	}
+	else if (switchTempUnityBtn.textContent === '°F') {
+		switchTempUnityBtn.textContent = '°C';
+	}
+});
+
+switchTempUnityBtn.addEventListener('mouseout', () => {
+	if(switchTempUnityBtn.textContent === '°F') {
+		switchTempUnityBtn.textContent = '°C';
+	}
+	else if (switchTempUnityBtn.textContent === '°C') {
+		switchTempUnityBtn.textContent = '°F';
+	}
+});
+  
+switchTempUnityBtn.addEventListener('click', () => {
+	changeTempUnity();
+});
+

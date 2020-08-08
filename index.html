@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.0.0/animate.min.css"/>
     <title>Weather API</title>
 </head>
 <body>
@@ -53,6 +54,13 @@
             </div>
             <div class="change-city__container">
                 <button id="changeCity" class="change-city__btn">Change the city</button>
+                <div class="fake-parent">
+                <form id="form" class="change-city__form">
+                    <span class="box-arrow"></span>
+                    <input id="changeCityInput" class="change-city__input" type="text">
+                    <button id="changeCitySubmit" class="change-city__submit-btn" type="submit">OK</button>
+                </form>
+            </div>
             </div>
         </div>
     </main>
