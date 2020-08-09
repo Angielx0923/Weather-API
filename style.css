@@ -1,5 +1,6 @@
 * {
     margin: 0;
+    font-family: 'Lato', sans-serif;
 }
 
 html {
@@ -10,6 +11,7 @@ html {
 header {
     margin: 2.5rem;
 }
+
 
 .change-temp-unity__container {
     text-align: end;
@@ -54,15 +56,14 @@ header {
 }
 
 .change-city__submit-btn {
-    position: absolute;
     background: none;
+    margin: auto;
     font-weight: bold;
-    top: 75%;
+    margin-top: 2rem;
+    display: block;
     border: none;
     width: 35px;
     height: 30px;
-    left: 50%;
-    transform: translate(-50%,-50%);
     cursor: pointer;
     outline: none;
     background-image:
@@ -70,7 +71,7 @@ header {
         linear-gradient(90deg, #333, #333 25%, transparent 25%, transparent 75%, #333 75%),
         linear-gradient(180deg, #333, #333 25%, transparent 25%, transparent 75%, #333 75%),
         linear-gradient(270deg, #333, #333 25%, transparent 25%, transparent 75%, #333 75%);
-        background-position:  0 0, 0 0, 100% 0, 0 100%;
+    background-position:  0 0, 0 0, 100% 0, 0 100%;
     background-size: 2px 100%, 100% 2px, 2px 100%, 100% 2px;
     background-repeat: no-repeat;
 
@@ -84,12 +85,12 @@ header {
 
 .fake-parent {
     position: relative;
+    top: 11px;
 }
 
 .change-city__form {
-    /* position: relative; */
     top: 13px;
-    height: 100px;
+    height: 0px;
     margin: 0 auto;
     width: 200px;
     border-radius: 15px;
@@ -100,7 +101,6 @@ header {
 }
 
 .box-arrow {
-    /* content: ''; */
     position: absolute;
     top: -13px;
     left: 50%;
@@ -145,11 +145,13 @@ header {
     padding-bottom: 2rem;
     font-size: 3rem;
     line-height: 2rem;
+    text-transform: capitalize;
 }
 
 .city {
     font-size: 2rem;
     text-transform: capitalize;
+    font-family: 'Imprima', sans-serif;
 }
 
 .weather__content {

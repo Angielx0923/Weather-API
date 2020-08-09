@@ -1,34 +1,43 @@
 let city                = 'New York';
 let celsius             = 'metric';
 let fahrenheit          = 'imperial';
-var url					= '';
+var url					        = '';
+let slideOpen           = false;
+let heightChecked       = false;
+let initHeight          = 0;
 let switchCityBtn       = document.querySelector('#changeCity');
 let switchTempUnityBtn  = document.querySelector('#changeTempUnity');
 let tempUnity           = document.getElementsByClassName('weather__temp-unity');
-let form				= document.querySelector('#form');
-let input				= document.querySelector('#changeCityInput');
-let submit				= document.querySelector('#changeCitySubmit');
+let form				        = document.querySelector('#form');
+let input				        = document.querySelector('#changeCityInput');
+let submit				      = document.querySelector('#changeCitySubmit');
+let arrow               = document.querySelector('#arrow');
 
-
-var slideOpen = true;
-var heightChecked = false;
-var initHeight = 0;
-//form.style.display = 'none';
+arrow.style.display = 'none';
 
 receiveTemperature(city);
 
+// Faire disparaitre la tête de fleche du formulaire
+function arrowTimeOut() {
+  arrow.style.display = 'none';
+}
+
+// Animation formulaire
 function slideToggle() {
     if(!heightChecked) {
-        initHeight = form.offsetHeight;
+        initHeight    = form.offsetHeight;
         heightChecked = true;
     }
-    if(slideOpen) {
-        slideOpen = false;
-        form.style.height = '0px';
+    if(!slideOpen) {
+        slideOpen           = true;
+        form.style.height   = '100px';
+        arrow.style.display = 'block';
+        
     }
     else {
-        slideOpen = true;
+        slideOpen         = false;
         form.style.height = initHeight + 'px';
+        setTimeout(arrowTimeOut, 250);
     }
 };
 
@@ -36,7 +45,7 @@ function changeTempUnity(){
 	for(let i = 0; i < tempUnity.length; i++) {
 
 		if(tempUnity[i].textContent === '°C') {
-			tempUnity[i].textContent = '°F';
+			tempUnity[i].textContent  = '°F';
 			url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=467a1480cc6bf31722891e57ffb7cf35&units=' + fahrenheit;
 		}
 		else {
@@ -63,7 +72,7 @@ function receiveTemperature(city) {
 
 
   request.onload = function() {
-    if(request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+    if(request.readyState === request.DONE && request.status === 200) {
       let temperature        = request.response.main.temp;
       let feelsLike          = request.response.main.feels_like;
       let cityName           = request.response.name;
@@ -113,19 +122,19 @@ switchCityBtn.addEventListener('click', () => {
 
 switchTempUnityBtn.addEventListener('mouseover', () => {
 	if(switchTempUnityBtn.textContent === '°C') {
-		switchTempUnityBtn.textContent = '°F';
+		switchTempUnityBtn.textContent  = '°F';
 	}
 	else if (switchTempUnityBtn.textContent === '°F') {
-		switchTempUnityBtn.textContent = '°C';
+		switchTempUnityBtn.textContent        = '°C';
 	}
 });
 
 switchTempUnityBtn.addEventListener('mouseout', () => {
 	if(switchTempUnityBtn.textContent === '°F') {
-		switchTempUnityBtn.textContent = '°C';
+		switchTempUnityBtn.textContent  = '°C';
 	}
 	else if (switchTempUnityBtn.textContent === '°C') {
-		switchTempUnityBtn.textContent = '°F';
+		switchTempUnityBtn.textContent        = '°F';
 	}
 });
   
