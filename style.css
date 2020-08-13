@@ -10,8 +10,105 @@ html {
 
 header {
     margin: 2.5rem;
+    display: flex;
+    justify-content: space-between;
 }
 
+/*--------------------------------*\
+              DARK MODE
+\*--------------------------------*/
+
+.dark {
+    background: #000;
+    background: linear-gradient(to right, rgb(40, 51, 83), 40%, rgb(0, 0, 0));
+    color: #fff;
+}
+
+.dark .container:hover {
+    box-shadow: 5px 6px 20px 1px rgba(255,255,255, .2);
+}
+
+.dark .change-city__btn {
+    background-color: rgba(255, 255, 255, .1);
+    outline: 2px solid rgba(255, 255, 255, .1);
+    color: rgba(255,255,255, .5);
+}
+
+.dark .change-city__btn:hover {
+    background-color: rgba(255, 255, 255, .7);
+    outline: 2px solid rgba(255, 255, 255, .7);
+    color: #000;
+}
+
+.dark .general-info__container {
+    border: 2px solid rgba(255, 255, 255, .1);
+}
+
+.dark .change-temp-unity__btn {
+    background-color: rgba(255, 255, 255, .2);
+    color: rgba(255,255,255, .5);
+}
+
+.dark .change-temp-unity__btn:hover {
+    background-color: rgba(255, 255, 255, .8);
+    color: #000;
+}
+
+/*--------------------------------*\
+             LIGHT MODE
+\*--------------------------------*/
+
+.dark-mode__container {
+    position: relative;
+    display: inline-block;
+    width: 70px;
+    height: 2rem;
+}
+
+.dark-mode__container:before {
+    content: '';
+    position: absolute;
+    height: .3rem;
+    width: 2.5rem;
+    background-color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: auto 0;
+}
+
+.dark-mode__btn {
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+    margin: auto 0;
+    z-index: 2;
+    position: absolute;
+    left: -3px;
+    top: -11px;
+    opacity: 0;
+}
+
+.moon-icon {
+    font-size: 27px;
+    position: absolute;
+    top: -9px;
+    left: -2px;
+
+    transition: all 250ms ease-in;
+}
+
+.sun-icon {
+    width: 32px;
+    position: absolute;
+    top: -14px;
+    transform: rotate(25deg);
+    left: 0;
+    filter: invert(1);
+
+    transition: all 250ms ease-in;
+}
 
 .change-temp-unity__container {
     text-align: end;
@@ -161,7 +258,7 @@ header {
 }
 
 .weather__icon {
-    width: 80%;
+    width: 240px;
     margin: auto;
     position: relative;
     top: 1rem;

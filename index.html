@@ -1,71 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Average+Sans&family=Gidugu&family=Imprima&family=Lato:ital,wght@0,400;0,700;1,400&family=Roboto:wght@400;500;700&family=Ubuntu:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
-    <title>Weather API</title>
-</head>
-<body>
-    <header>
-        <div class="change-temp-unity__container">
-            <button id="changeTempUnity" class="weather__temp-unity change-temp-unity__btn">°C</button>
-        </div>
-    </header>
-    <main>
-        <div class="container">
-            <h1 class="title">Weather now</h1>
-            <span id="city" class="city">paris</span>
-
-            <div class="weather__content">
-                <img src="#" alt="Weather icon" id="icon" class="weather__icon">
-                <span id="description" class="weather__description">cloudy</span>
-
-                <div class="temp__container">
-                    <span id="temp" class="weather__temp">xx.x</span>
-                    <span class="weather__temp-unity weather__temp-unity--big tempUnity">°C</span>
-                </div>
-
-                <div class="feels-like__container">
-                    <span class="weather__feels-like-text">Feels like</span>
-                    <span id="feelsLike" class="weather__feels-like">xx.x</span>
-                    <span class="weather__temp-unity weather__temp-unity--big tempUnity">°C</span>
-                </div>
-
-                <div class="general-info__container">
-                    <div class="temp-min__container">
-                        <span class="weather__temp-text">Min.</span>
-                        <span id="tempMin" class="weather__temp-min">xx.x</span>
-                        <span class="weather__temp-unity weather__temp-unity--small tempUnity">°C</span>
-                    </div>
-                    <div class="temp-max__container">
-                        <span class="weather__temp-text">Max.</span>
-                        <span id="tempMax" class="weather__temp-max">xx.x</span>
-                        <span class="weather__temp-unity weather__temp-unity--small tempUnity">°C</span>
-                    </div>
-                    <div class="wind__container">
-                        <span class="weather__temp-text">Wind</span>
-                        <span id="windSpeed" class="weather__wind">xx.x</span>
-                        <span class="weather__wind-unity">km/h</span>
-                    </div>
-                </div>
-
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <link href="https://fonts.googleapis.com/css2?family=Average+Sans&family=Gidugu&family=Imprima&family=Lato:ital,wght@0,400;0,700;1,400&family=Roboto:wght@400;500;700&family=Ubuntu:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/9e4aecb999.js" crossorigin="anonymous"></script>
+        <title>Weather API</title>
+    </head>
+    <body>
+        <header>
+            <div id="darkModeBtn" class="dark-mode__container">
+                <input type="checkbox" class="dark-mode__btn" id="darkModeCheckbox">
+                <i id="moon" class="fas fa-moon moon-icon"></i>
+                <img id="sun" class="sun-icon icon" src="img/shining-sun_icon-icons.com_54261.svg" alt="sun icon">
             </div>
-            <div class="change-city__container">
-                <button id="changeCity" class="change-city__btn">Change the city</button>
-                <div class="fake-parent">
-                <form id="form" class="change-city__form">
-                    <span id="arrow" class="box-arrow"></span>
-                    <input id="changeCityInput" class="change-city__input" type="text">
-                    <button id="changeCitySubmit" class="change-city__submit-btn" type="submit">OK</button>
-                </form>
+            <div class="change-temp-unity__container">
+                <button id="changeTempUnity" class="change-temp-unity__btn tempUnity">°F</button>
             </div>
+        </header>
+        <main>
+            <div class="container">
+                <h1 class="title">Weather now</h1>
+                <span id="city" class="city">paris</span>
+
+                <div class="weather__content">
+                    <img src="#" alt="Weather icon" id="icon" class="weather__icon">
+                    <span id="description" class="weather__description">cloudy</span>
+
+                    <div class="temp__container">
+                        <span id="temp" class="weather__temp">xx.x</span>
+                        <span class="weather__temp-unity weather__temp-unity--big tempUnity">°F</span>
+                    </div>
+
+                    <div class="feels-like__container">
+                        <span class="weather__feels-like-text">Feels like</span>
+                        <span id="feelsLike" class="weather__feels-like">xx.x</span>
+                        <span class="weather__temp-unity weather__temp-unity--big tempUnity">°F</span>
+                    </div>
+
+                    <div class="general-info__container">
+                        <div class="temp-min__container">
+                            <span class="weather__temp-text">Min.</span>
+                            <span id="tempMin" class="weather__temp-min">xx.x</span>
+                            <span class="weather__temp-unity weather__temp-unity--small tempUnity">°F</span>
+                        </div>
+                        <div class="temp-max__container">
+                            <span class="weather__temp-text">Max.</span>
+                            <span id="tempMax" class="weather__temp-max">xx.x</span>
+                            <span class="weather__temp-unity weather__temp-unity--small tempUnity">°F</span>
+                        </div>
+                        <div class="wind__container">
+                            <span class="weather__temp-text">Wind</span>
+                            <span id="windSpeed" class="weather__wind">xx.x</span>
+                            <span class="weather__wind-unity">km/h</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="change-city__container">
+                    <button id="changeCity" class="change-city__btn">Change the city</button>
+                    <div class="fake-parent">
+                        <form id="form" class="change-city__form">
+                            <span id="arrow" class="box-arrow"></span>
+                            <input id="changeCityInput" class="change-city__input" type="text">
+                            <button id="changeCitySubmit" class="change-city__submit-btn" type="submit">OK</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-        </div>
-    </main>
-    <script src="app.js"></script>
-</body>
+        </main>
+        <script type="module" src="app.js"></script>
+    </body>
 </html>
-
-<img src="" alt="">
