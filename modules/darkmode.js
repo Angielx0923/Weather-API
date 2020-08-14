@@ -11,38 +11,22 @@ export function darkModeModule() {
 
     function darkMode() {
         html.classList.add('dark');
-        sun.style.opacity = '100%';
-        moon.style.opacity = '0';
-        sun.style.left = '21px';
+        sun.style.transform = 'translateX(0) rotate(-25deg)';
+        sun.style.filter = 'invert(1)';
+        moon.style.transform = 'translate(52px, -60px)';
         localStorage.setItem('theme', 'dark');
     };
 
-    // function btnAnimationDark() {
-    //     for(let i = 0; i < 2; i++) {
-    //         icons[i].classList.add('checked');
-    //         localStorage.setItem('theme', 'dark');
-    //     }
-    // };
-
-    // function btnAnimationLight() {
-    //     for(let i = 0; i < 2; i++) {
-    //         if(icons.classList.contains('checked')) {
-    //             icons[i].classList.remove('checked');
-    //             localStorage.setItem('theme', 'light');
-    //         }
-    //     }
-    // };
 
     darkModeBtn.addEventListener('click', () => {
         if(html.classList.contains('dark')) {
+            moon.style.transform = 'translateX(0)';
+            sun.style.filter = 'invert(0)';
+            sun.style.transform = 'translate(-80px, 43px) rotate(-125deg)';
             html.classList.remove('dark');
-            moon.style.opacity = '100%';
-            sun.style.opacity = '0'
             localStorage.setItem('theme', 'light');
-            // btnAnimationLight();
         }
         else {
-            // btnAnimationDark();
             darkMode();
         }
     });
