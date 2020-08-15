@@ -3,8 +3,10 @@ import { darkModeModule } from './modules/darkmode.js';
 "use strict";
 
 let city;
+let currentCity;
 let celsius             = 'metric';
 let fahrenheit          = 'imperial';
+let currentUnity        = fahrenheit;
 var url					        = '';
 let slideOpen           = false;
 let heightChecked       = false;
@@ -16,56 +18,64 @@ let form				        = document.querySelector('#form');
 let input				        = document.querySelector('#changeCityInput');
 let arrow               = document.querySelector('#arrow');
 
-arrow.style.display = 'none';
+// currentCity = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=467a1480cc6bf31722891e57ffb7cf35&units=';
 
+// url = currentCity + currentUnity;
+
+arrow.style.display = 'none';
+geolocationWeather();
 darkModeModule();
 
-if('geolocation' in navigator) {
-  navigator.geolocation.watchPosition((position) => {
-    url = 'https://api.openweathermap.org/data/2.5/weather?lon=' + position.coords.longitude + '&lat=' + position.coords.latitude + '&appid=467a1480cc6bf31722891e57ffb7cf35&units=' + fahrenheit;
+function geolocationWeather() {
+  if('geolocation' in navigator) {
+    navigator.geolocation.watchPosition((position) => {
+      currentCity = 'https://api.openweathermap.org/data/2.5/weather?lon=' + position.coords.longitude + '&lat=' + position.coords.latitude + '&appid=467a1480cc6bf31722891e57ffb7cf35&units=';
+      
+      url = currentCity + currentUnity;
 
-    let request = new XMLHttpRequest();
+      let request = new XMLHttpRequest();
 
-    request.open('GET', url);
-    request.responseType = 'json';
-    request.send();
+      request.open('GET', url);
+      request.responseType = 'json';
+      request.send();
 
 
-    request.onload = function() {
-      if(request.readyState === request.DONE && request.status === 200) {
-        let temperature        = request.response.main.temp;
-        let feelsLike          = request.response.main.feels_like;
-        let cityName           = request.response.name;
-        let icon               = request.response.weather[0].icon;
-        let description        = request.response.weather[0].description;
-        let tempMin            = request.response.main.temp_min;
-        let tempMax            = request.response.main.temp_max;
-        let windSpeed          = request.response.wind.speed;
-        
-        let temperatureRounded = roundedNumber(temperature);
-        let feelsLikeRounded   = roundedNumber(feelsLike);
-        let tempMinRounded     = roundedNumber(tempMin);
-        let tempMaxRounded     = roundedNumber(tempMax);
-        let windSpeedRounded   = roundedNumber(windSpeed);
+      request.onload = function() {
+        if(request.readyState === request.DONE && request.status === 200) {
+          let temperature        = request.response.main.temp;
+          let feelsLike          = request.response.main.feels_like;
+          let cityName           = request.response.name;
+          let icon               = request.response.weather[0].icon;
+          let description        = request.response.weather[0].description;
+          let tempMin            = request.response.main.temp_min;
+          let tempMax            = request.response.main.temp_max;
+          let windSpeed          = request.response.wind.speed;
+          
+          let temperatureRounded = roundedNumber(temperature);
+          let feelsLikeRounded   = roundedNumber(feelsLike);
+          let tempMinRounded     = roundedNumber(tempMin);
+          let tempMaxRounded     = roundedNumber(tempMax);
+          let windSpeedRounded   = roundedNumber(windSpeed);
 
-        document.querySelector('#temp').textContent         = temperatureRounded;
-        document.querySelector('#feelsLike').textContent    = feelsLikeRounded;
-        document.querySelector('#city').textContent         = cityName;
-        document.querySelector('#icon').src                 = "http://openweathermap.org/img/wn/" + icon + "@4x.png";
-        document.querySelector('#description').textContent  = description;
-        document.querySelector('#tempMin').textContent      = tempMinRounded;
-        document.querySelector('#tempMax').textContent      = tempMaxRounded;
-        document.querySelector('#windSpeed').textContent    = windSpeedRounded;
+          document.querySelector('#temp').textContent         = temperatureRounded;
+          document.querySelector('#feelsLike').textContent    = feelsLikeRounded;
+          document.querySelector('#city').textContent         = cityName;
+          document.querySelector('#icon').src                 = "http://openweathermap.org/img/wn/" + icon + "@4x.png";
+          document.querySelector('#description').textContent  = description;
+          document.querySelector('#tempMin').textContent      = tempMinRounded;
+          document.querySelector('#tempMax').textContent      = tempMaxRounded;
+          document.querySelector('#windSpeed').textContent    = windSpeedRounded;
+          }
+        else {
+            alert('Oops, something went wrong.');
         }
-      else {
-          alert('Oops, something went wrong.');
-      }
-    }  
-  }, error, options);
-}
-else {
-  error();
-}
+      }  
+    }, error, options);
+  }
+  else {
+    error();
+  }
+};
 
 var options = {
   enableHighAccuracy: true
@@ -100,35 +110,37 @@ function slideToggle() {
     }
 };
 
-// function changeTempUnityValue() {
-//   if(switchTempUnity.textContent === '°C') {
-//     url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=467a1480cc6bf31722891e57ffb7cf35&units=' + fahrenheit;
-//   }
-//   else {
-//     url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=467a1480cc6bf31722891e57ffb7cf35&units=' + celsius;
-//   }
-// }
-
-function changeTempUnity(){
+function changeTempUnity() {
 	for(let i = 0; i < tempUnity.length; i++) {
 
 		if(tempUnity[i].textContent === '°C') {
-			tempUnity[i].textContent  = '°F';
+      tempUnity[i].textContent  = '°F';
+      currentUnity = fahrenheit;
+      url = currentCity + currentUnity;
+
 		}
 		else {
-			tempUnity[i].textContent = '°C';
-		}
-	};
+      tempUnity[i].textContent = '°C';
+      currentUnity = celsius;
+      url = currentCity + currentUnity;
+    }
+  };
+  if (currentCity == 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=467a1480cc6bf31722891e57ffb7cf35&units=') {
+    receiveTemperature();
+  }
+  else {
+    geolocationWeather();
+  }
 };
+
 
 function roundedNumber(value) {
   return Math.round(value * 10) / 10;
 };
 
-function receiveTemperature(city) {
-
-  url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=467a1480cc6bf31722891e57ffb7cf35&units=' + fahrenheit;
-
+function receiveTemperature(currentCity) {
+  currentCity = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=467a1480cc6bf31722891e57ffb7cf35&units=';
+  url = currentCity + currentUnity;
 
   let request = new XMLHttpRequest();
 
@@ -178,7 +190,7 @@ form.addEventListener('submit', (e) => {
 		input.style.borderBottom = '2px solid grey'
 		city = input.value;
 		input.value = '';
-		receiveTemperature(city);
+		receiveTemperature(currentCity);
 	}
 });
 

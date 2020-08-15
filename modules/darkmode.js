@@ -11,19 +11,21 @@ export function darkModeModule() {
 
     function darkMode() {
         html.classList.add('dark');
+        // start animation button
         sun.style.transform = 'translateX(0) rotate(-25deg)';
         sun.style.filter = 'invert(1)';
         moon.style.transform = 'translate(52px, -60px)';
+        // end button animation
         localStorage.setItem('theme', 'dark');
     };
 
 
     darkModeBtn.addEventListener('click', () => {
         if(html.classList.contains('dark')) {
+            html.classList.remove('dark');
             moon.style.transform = 'translateX(0)';
             sun.style.filter = 'invert(0)';
             sun.style.transform = 'translate(-80px, 43px) rotate(-125deg)';
-            html.classList.remove('dark');
             localStorage.setItem('theme', 'light');
         }
         else {
