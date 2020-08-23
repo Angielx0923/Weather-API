@@ -1,5 +1,9 @@
 import { darkModeModule } from './modules/darkmode.js';
 
+/*--------------------------------*\
+               GLOBAL
+\*--------------------------------*/
+
 "use strict";
 
 let city;
@@ -18,19 +22,20 @@ let form				        = document.querySelector('#form');
 let input				        = document.querySelector('#changeCityInput');
 let arrow               = document.querySelector('#arrow');
 
-// currentCity = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=467a1480cc6bf31722891e57ffb7cf35&units=';
-
-// url = currentCity + currentUnity;
-
 arrow.style.display = 'none';
-geolocationWeather();
+
+geolocationTemperature();
 darkModeModule();
 
-function geolocationWeather() {
+/*--------------------------------*\
+             FUNCTIONS
+\*--------------------------------*/
+
+// Requète AJAX géolocalisée
+function geolocationTemperature() {
   if('geolocation' in navigator) {
     navigator.geolocation.watchPosition((position) => {
       currentCity = 'https://api.openweathermap.org/data/2.5/weather?lon=' + position.coords.longitude + '&lat=' + position.coords.latitude + '&appid=467a1480cc6bf31722891e57ffb7cf35&units=';
-      
       url = currentCity + currentUnity;
 
       let request = new XMLHttpRequest();
@@ -124,20 +129,58 @@ function changeTempUnity() {
       currentUnity = celsius;
       url = currentCity + currentUnity;
     }
-  };
-  if (currentCity == 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=467a1480cc6bf31722891e57ffb7cf35&units=') {
-    receiveTemperature();
   }
-  else {
-    geolocationWeather();
-  }
+  getCurrentCityTemperature(currentCity)
 };
 
-
+// Valeur arrondie à une décimale
 function roundedNumber(value) {
   return Math.round(value * 10) / 10;
 };
 
+function getCurrentCityTemperature(currentCity) {
+  url = currentCity + currentUnity;
+
+  let request = new XMLHttpRequest();
+
+  request.open('GET', url);
+  request.responseType = 'json';
+  request.send();
+
+
+  request.onload = function() {
+    if(request.readyState === request.DONE && request.status === 200) {
+      let temperature        = request.response.main.temp;
+      let feelsLike          = request.response.main.feels_like;
+      let cityName           = request.response.name;
+      let icon               = request.response.weather[0].icon;
+      let description        = request.response.weather[0].description;
+      let tempMin            = request.response.main.temp_min;
+      let tempMax            = request.response.main.temp_max;
+      let windSpeed          = request.response.wind.speed;
+      
+      let temperatureRounded = roundedNumber(temperature);
+      let feelsLikeRounded   = roundedNumber(feelsLike);
+      let tempMinRounded     = roundedNumber(tempMin);
+      let tempMaxRounded     = roundedNumber(tempMax);
+      let windSpeedRounded   = roundedNumber(windSpeed);
+
+      document.querySelector('#temp').textContent         = temperatureRounded;
+      document.querySelector('#feelsLike').textContent    = feelsLikeRounded;
+      document.querySelector('#city').textContent         = cityName;
+      document.querySelector('#icon').src                 = "http://openweathermap.org/img/wn/" + icon + "@4x.png";
+      document.querySelector('#description').textContent  = description;
+      document.querySelector('#tempMin').textContent      = tempMinRounded;
+      document.querySelector('#tempMax').textContent      = tempMaxRounded;
+      document.querySelector('#windSpeed').textContent    = windSpeedRounded;
+      }
+    else {
+        alert('Oops, something went wrong.');
+    }
+  }  
+}
+
+// Requète AJAX pour le changement de ville
 function receiveTemperature(currentCity) {
   currentCity = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=467a1480cc6bf31722891e57ffb7cf35&units=';
   url = currentCity + currentUnity;
@@ -181,6 +224,11 @@ function receiveTemperature(currentCity) {
   }  
 }
 
+/*--------------------------------*\
+           EVENT LISTENERS
+\*--------------------------------*/
+
+// Envoi formulaire
 form.addEventListener('submit', (e) => {
 	e.preventDefault();
 	if(input.value == '') {
@@ -194,10 +242,12 @@ form.addEventListener('submit', (e) => {
 	}
 });
 
+// Bouton "change the city"
 switchCityBtn.addEventListener('click', () => {
 	slideToggle();
 });
 
+// Hover d'entré - bouton untiés temperature
 switchTempUnity.addEventListener('mouseover', () => {
 	if(switchTempUnity.textContent === '°C') {
 		switchTempUnity.textContent  = '°F';
@@ -207,6 +257,7 @@ switchTempUnity.addEventListener('mouseover', () => {
 	}
 });
 
+// Hover de sortie - bouton untiés temperature
 switchTempUnity.addEventListener('mouseout', () => {
 	if(switchTempUnity.textContent === '°F') {
 		switchTempUnity.textContent  = '°C';
@@ -215,7 +266,8 @@ switchTempUnity.addEventListener('mouseout', () => {
 		switchTempUnity.textContent        = '°F';
 	}
 });
-  
+ 
+// Bouton pour changer les unités de température
 switchTempUnity.addEventListener('click', () => {
   changeTempUnity();
 });

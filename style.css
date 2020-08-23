@@ -55,7 +55,7 @@ header {
 }
 
 /*--------------------------------*\
-             LIGHT MODE
+          DARK MODE BUTTON
 \*--------------------------------*/
 
 .dark-mode__container {
@@ -99,6 +99,10 @@ header {
 
     transition: transform 400ms ease;
 }
+
+/*--------------------------------*\
+        GLOBAL - LIGHT MODE
+\*--------------------------------*/
 
 .change-temp-unity__container {
     text-align: end;
